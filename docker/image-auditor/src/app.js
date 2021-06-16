@@ -6,7 +6,7 @@ const net = require ('net');
 
 const INTERVAL = 5000;
 
-const PORT = 2205;
+const TCP_PORT = 2205;
 
 const INSTRUMENTS = [
 	["piano", "ti-ta-ti"],
@@ -64,5 +64,5 @@ socketUDP.bind(protocol.PORT, function(){
 	console.log("Join multicast group");
 	socketUDP.addMembership(protocol.HOSTNAME);
 });
-server.listen(PORT);
+server.listen(TCP_PORT);
 server.on("connection", connect);
