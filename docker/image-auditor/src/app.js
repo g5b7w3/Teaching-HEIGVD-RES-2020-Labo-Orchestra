@@ -6,6 +6,8 @@ const net = require ('net');
 
 const INTERVAL = 5000;
 
+const PORT = 9907;
+
 const TCP_PORT = 2205;
 
 const INSTRUMENTS = [
