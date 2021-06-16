@@ -1,6 +1,6 @@
-FROM node:16
+FROM node:14
 
-RUN prm install rfc4122
+RUN npm install rfc4122
 
 COPY src /opt/app/
 
