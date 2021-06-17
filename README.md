@@ -104,15 +104,15 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | --- | --- |
 |Question | How can we represent the system in an **architecture diagram**, which gives information both about the Docker containers, the communication protocols and the commands? |
-| | *Insert your diagram here...* |
+| | ![image](images/Capture%20d’écran%202021-06-17%20103720.png) |
 |Question | Who is going to **send UDP datagrams** and **when**? |
-| | *Enter your response here...* |
+| | Les musiciens vont en envoyer toutes les secondes |
 |Question | Who is going to **listen for UDP datagrams** and what should happen when a datagram is received? |
-| | *Enter your response here...* |
+| | L'auditeur, il met a jour la liste de musicien actif |
 |Question | What **payload** should we put in the UDP datagrams? |
-| | *Enter your response here...* |
+| | L'uuid du musicien pour qu'il puisse être identifier ainsi que le son émis par son instrument |
 |Question | What **data structures** do we need in the UDP sender and receiver? When will we update these data structures? When will we query these data structures? |
-| | *Enter your response here...* |
+| | On utilise une map, pour associer un instrument avec un "bruit". Elle est utilisé autant du côté de l'émetteur que du récepteur. Elles ne sont jamais update vu que les instruments ne changent pas de son. Le receveur quand a lui gère également l'association entre un uuid et des informations tel quel l'instrument du musicien ainsi que ça première et dernière apparition. A chaque fois qu'un datagram est reçu, on commence par retirer les musiciens jugés inactif puis on mets a jour avec les données qui viennent d'être reçues. |
 
 
 ## Task 2: implement a "musician" Node.js application
@@ -120,21 +120,21 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | ---  | --- |
 |Question | In a JavaScript program, if we have an object, how can we **serialize it in JSON**? |
-| | *Enter your response here...*  |
+| | En utilisant la méthode "JSON.stringify()"  |
 |Question | What is **npm**?  |
-| | *Enter your response here...*  |
+| | Le packet manager officiel de Node.js  |
 |Question | What is the `npm install` command and what is the purpose of the `--save` flag?  |
-| | *Enter your response here...*  |
+| Install permet d'installer un package, le flag save permet d'installer le package comme une dépendance. La valeur par défaut est a true donc il n'est généralement pas spécifié  |
 |Question | How can we use the `https://www.npmjs.com/` web site?  |
-| | *Enter your response here...*  |
+| | On peut l'utiliser pour rechercher des packages |
 |Question | In JavaScript, how can we **generate a UUID** compliant with RFC4122? |
-| | *Enter your response here...*  |
+| | Il existe un packet npm RFC4122 qui nous permet de généré des uuid correspondant  |
 |Question | In Node.js, how can we execute a function on a **periodic** basis? |
-| | *Enter your response here...*  |
+| | En utilisant la fonction setInterval() |
 |Question | In Node.js, how can we **emit UDP datagrams**? |
-| | *Enter your response here...*  |
+| | En utilisant le packet dgram, on peut crée un socket et envoyer des datagrams |
 |Question | In Node.js, how can we **access the command line arguments**? |
-| | *Enter your response here...*  |
+| | Grâce au tableau process.argv[] |
 
 
 ## Task 3: package the "musician" app in a Docker image
