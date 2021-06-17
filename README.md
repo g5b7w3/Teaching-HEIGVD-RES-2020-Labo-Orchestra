@@ -120,7 +120,7 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | ---  | --- |
 |Question | In a JavaScript program, if we have an object, how can we **serialize it in JSON**? |
-| | En utilisant la méthode "JSON.stringify()"  |
+| | En utilisant la méthode ```JSON.stringify()``` |
 |Question | What is **npm**?  |
 | | Le packet manager officiel de Node.js  |
 |Question | What is the `npm install` command and what is the purpose of the `--save` flag?  |
@@ -134,7 +134,7 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 |Question | In Node.js, how can we **emit UDP datagrams**? |
 | | En utilisant le packet dgram, on peut crée un socket et envoyer des datagrams |
 |Question | In Node.js, how can we **access the command line arguments**? |
-| | Grâce au tableau process.argv[] |
+| | Grâce au tableau ```process.argv[]``` |
 
 
 ## Task 3: package the "musician" app in a Docker image
@@ -142,17 +142,17 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | ---  | --- |
 |Question | How do we **define and build our own Docker image**?|
-| | *Enter your response here...*  |
+| | On utilise un fichier nommé Dockerfile qui contient les instructions nécessaires a la création de l'image. On peut ensuite appelé ```docker build``` pour créer l'image, qu'on pourra ensuite exécuté avec ```docker run```  |
 |Question | How can we use the `ENTRYPOINT` statement in our Dockerfile?  |
-| | *Enter your response here...*  |
+| | ```ENTRYPOINT``` nous permet de définir ce que va faire le conteneur lors du démarrage. Dans notre cas on lance notre script ```app.js``` qui se trouve dans ```/opt/app/```.   |
 |Question | After building our Docker image, how do we use it to **run containers**?  |
-| | *Enter your response here...*  |
+| | On utilise : ```docker run res/musician <le nom de l'instrument>```|
 |Question | How do we get the list of all **running containers**?  |
-| | *Enter your response here...*  |
+| | Avec la commande ```docker ps``` |
 |Question | How do we **stop/kill** one running container?  |
-| | *Enter your response here...*  |
+| | Avec la commande ```docker stop <nom du conteneur>``` |
 |Question | How can we check that our running containers are effectively sending UDP datagrams?  |
-| | *Enter your response here...*  |
+| | Avec des outils d'annalyse réseau tel que Wireshark  |
 
 
 ## Task 4: implement an "auditor" Node.js application
@@ -160,15 +160,15 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | ---  | ---  |
 |Question | With Node.js, how can we listen for UDP datagrams in a multicast group? |
-| | *Enter your response here...*  |
+| | Avec la méthode ```addMembership()``` en lui donnant un groupe multicast|
 |Question | How can we use the `Map` built-in object introduced in ECMAScript 6 to implement a **dictionary**?  |
-| | *Enter your response here...* |
+| | On utilise Map pour lier nos instruments et leur son |
 |Question | How can we use the `Moment.js` npm module to help us with **date manipulations** and formatting?  |
-| | *Enter your response here...* |
+| | Je ne sais pas, j'ai utilisé ```Date.now()```, comme je n'ai rencontré aucun problème de formatage je n'ai pas cherché d'autre solution |
 |Question | When and how do we **get rid of inactive players**?  |
-| | *Enter your response here...* |
+| | Lorsque qu'une connexion est effectué sur le serveur, la liste de musicien actif est mise a jour avant d'être envoyée|
 |Question | How do I implement a **simple TCP server** in Node.js?  |
-| | *Enter your response here...* |
+| | On peut utiliser la librairie ```net``` comme montrer [ici](https://riptutorial.com/node-js/example/22405/a-simple-tcp-server) |
 
 
 ## Task 5: package the "auditor" app in a Docker image
@@ -176,7 +176,7 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | ---  | --- |
 |Question | How do we validate that the whole system works, once we have built our Docker image? |
-| | *Enter your response here...* |
+| | En exécutant le script fournis avec la commande ```sudo ./validate.sh``` et en comparant avec le résultat présenté dans la vidéo d'explication. |
 
 
 ## Constraints
