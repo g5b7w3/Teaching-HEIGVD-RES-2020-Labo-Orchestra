@@ -1,70 +1,55 @@
-const dgram = require("dgram");
-
+const protocol = require("./protocol.js");
 const dgram = require('dgram');
-
-const net = require ('net');
-
-const INTERVAL = 5000;
-
-const PORT = 9907;
-
-const TCP_PORT = 2205;
-
-const INSTRUMENTS = [
-	["piano", "ti-ta-ti"],
-	["trumpet", "pouet"],
-	["flute", "trulu"],
-	["violin", "gzi-gzi"],
-	["drum", "boum-boum"],
-];
-
-const instruments = new Map(Array.from(INSTRUMENTS, e => [e[1], e[0]));
-
-
+const net = require('net');
+const interval = 5000;
+const portTCP = 2205;
+const instrument_list = new Map(Array.from(protocol.INSTRUMENTS, e => [e[1], e[0]]));
 const socketUDP = dgram.createSocket('udp4');
-
 const srv = net.createServer();
 
-var musicians = new map();
+var musician_list = new Map();
 
-function sound(message, unused){
-	var msg = JSON.parse(message);
 
-	var musician = musicians.get(msg.uuid);
+function sound(message) {
+    var msg = JSON.parse(message);
 
-	var time = Date.now();
+    var musician = musician_list.get(msg.uuid);
+    var time = Date.now();
 
-	if(musician != undefined && time - musician.last <= INTERVAL){
-		musicians.set(msg.uuid, {instrument:musician.instrument, first:musician.first, last:time});
-	}
-	else{
-		musicians.set(msg.uuid, {instrument:instruments.get(msg.sound), first:time, last:time});
-	}
+    // If musician is active
+    if (musician != undefined && time - musician.last <= interval) {
+        musician_list.set(msg.uuid, {instrument:musician.instrument, first:musician.first, last:time});
+    } else {
+        musician_list.set(msg.uuid, {instrument:instrument_list.get(msg.sound), first:time, last:time});
+    }
 }
 
+function connect(socket) {
+    var time = Date.now();
+    var msg = JSON.stringify([...musician_list].filter(([key, value]) => {
+        if (time - value.last > interval) {
+            console.log("Removing lazy musician: ", key);
+            musician_list.delete(key);
+            return false;
+        }
+        
+        return true;
+    }).map(([key, value]) => {
+        return {uuid: key, instrument: value.instrument, activeSince: new Date(value.first)};
+    }));
 
-function connect(socket){
-	var time = Date.now();
-	var msg = JSON.stringify([...musicians].filter(([key, value]) => {
-		if(time - value.last > INTERVAL){
-			console.log("Remove lazy musicians", key);
-			musicians.delete(key);
-			return false;
-		}
-
-		return true;
-	}).map(([key,value]) => {
-		return {uuid: key, instrument: value.instrument, activeSince: new Date(value.first)};
-	}));
-
-	socket.write(msg);
-	socket.write("\n");
-	socket.end();
+    socket.write(msg);
+    socket.write("\n");
+    socket.end();
 }
-socketUDP.on("message", receiveSound);
-socketUDP.bind(protocol.PORT, function(){
-	console.log("Join multicast group");
-	socketUDP.addMembership(protocol.HOSTNAME);
+
+socketUDP.on("message", sound);
+
+socketUDP.bind(protocol.PORT, function() {
+  console.log("Joining multicast group");
+  socketUDP.addMembership(protocol.HOSTNAME);
 });
-server.listen(TCP_PORT);
-server.on("connection", connect);
+
+srv.listen(portTCP);
+
+srv.on("connection", connect);
