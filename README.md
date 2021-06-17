@@ -124,7 +124,7 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 |Question | What is **npm**?  |
 | | Le packet manager officiel de Node.js  |
 |Question | What is the `npm install` command and what is the purpose of the `--save` flag?  |
-| Install permet d'installer un package, le flag save permet d'installer le package comme une dépendance. La valeur par défaut est a true donc il n'est généralement pas spécifié  |
+| | Install permet d'installer un package, le flag save permet d'installer le package comme une dépendance. La valeur par défaut est a true donc il n'est généralement pas spécifié  |
 |Question | How can we use the `https://www.npmjs.com/` web site?  |
 | | On peut l'utiliser pour rechercher des packages |
 |Question | In JavaScript, how can we **generate a UUID** compliant with RFC4122? |
